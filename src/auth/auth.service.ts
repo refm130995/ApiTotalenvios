@@ -60,7 +60,7 @@ export class AuthService {
     } else {
       throw new HttpException(
         {
-          status: HttpStatus.EXIST,
+          status: HttpStatus.BAD_REQUEST,
           error: 'Este usuario no existe!',
         },
         409,
@@ -82,7 +82,7 @@ export class AuthService {
     } else {
       throw new HttpException(
         {
-          status: HttpStatus.EXIST,
+          status: HttpStatus.BAD_REQUEST,
           error: 'Este usuario no existe!',
         },
         409,

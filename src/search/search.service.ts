@@ -29,7 +29,7 @@ export class SearchService {
             return this.branchOffices;
         } else {
             throw new HttpException({
-                status: HttpStatus.EXIST,
+                status: HttpStatus.BAD_REQUEST,
                 error: 'Sin resultados',
             }, 409);
         }
@@ -46,7 +46,7 @@ export class SearchService {
             return result;
         } else {
             throw new HttpException({
-                status: HttpStatus.EXIST,
+                status: HttpStatus.BAD_REQUEST,
                 error: 'Sin resultados',
             }, 409);
         }

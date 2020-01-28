@@ -1,29 +1,32 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
-import { ApiUseTags } from '@nestjs/swagger';
+/* import { aPi } from '@nestjs/swagger'; */
 import { ServicesService } from './services.service';
-import { CreateServiceDto, DeleteServiceDto } from "../schemas/services.schemas";
+import {
+  CreateServiceDto,
+  DeleteServiceDto,
+} from '../schemas/services.schemas';
 
-@ApiUseTags('Services Routes')
+/* @ApiUseTags('Services Routes') */
 @Controller('services')
 export class ServicesController {
-    constructor(private readonly appService: ServicesService) {}
-    @Post()
-    Create(@Body() CreateServiceDto: CreateServiceDto) {
-      return this.appService.insert(CreateServiceDto);
-    }
-    
-    @Get()
-    FindAll() {
-      return this.appService.find();
-    }
+  constructor(private readonly appService: ServicesService) {}
+  @Post()
+  Create(@Body() CreateServiceDto: CreateServiceDto) {
+    return this.appService.insert(CreateServiceDto);
+  }
 
-    @Post('delete')
-    DeleteById(@Body() DeleteServiceDto: DeleteServiceDto){
-        return this.appService.delete(DeleteServiceDto);
-    }
+  @Get()
+  FindAll() {
+    return this.appService.find();
+  }
 
-    @Post('update')
-    UpdateById(@Body() Service: any){
-        return this.appService.updateService(Service);
-    }
+  @Post('delete')
+  DeleteById(@Body() DeleteServiceDto: DeleteServiceDto) {
+    return this.appService.delete(DeleteServiceDto);
+  }
+
+  @Post('update')
+  UpdateById(@Body() Service: any) {
+    return this.appService.updateService(Service);
+  }
 }
