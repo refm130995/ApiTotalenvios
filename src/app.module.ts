@@ -17,9 +17,10 @@ import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
+    /* MongooseModule.forRoot(
       'mongodb+srv://baldo:7ATep5KlM292X9so@barbers-allkf.mongodb.net/Barbers?retryWrites=true&w=majority',
-    ),
+    ), */
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/totalenvios'),
     BranchOfficesModule,
     AuthModule,
     ServicesModule,
