@@ -1,7 +1,7 @@
 import { sign } from 'jsonwebtoken';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-/* import * as bcrypt from 'bcrypt'; */
+import * as bcrypt from 'bcryptjs';
 import { Model } from 'mongoose';
 import { RegisterDTO, LoginDTO, Payload, User } from 'src/schemas/auth.schemas';
 import { jwtConstants } from 'src/utilities/constant.jwt';
@@ -16,7 +16,6 @@ export class AuthService {
   async validateUser(payload: Payload) {
     return await this.findByPayload(payload);
   }
-
 
   async create(userDTO: RegisterDTO) {
     const { email } = userDTO;
@@ -43,11 +42,11 @@ export class AuthService {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
-  /*   if (await bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(password, user.password)) {
       return this.sanitizeUser(user);
     } else {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-    } */
+    }
   }
 
   async findByPayload(payload: Payload) {
@@ -56,13 +55,16 @@ export class AuthService {
 
   async findById(user: any) {
     const result = await this.userModel.findById({ _id: user._id });
-    if(result){
+    if (result) {
       return result;
-    }else{
-      throw new HttpException({
-        status: HttpStatus.EXIST,
-        error: 'Este usuario no existe!',
-    }, 409);
+    } else {
+      throw new HttpException(
+        {
+          status: HttpStatus.EXIST,
+          error: 'Este usuario no existe!',
+        },
+        409,
+      );
     }
   }
 
@@ -73,15 +75,18 @@ export class AuthService {
     // return user.depopulate('password');
   }
 
-  async update(user:any) {
-    if (await this.userModel.exists({ _id: user._id})) {
+  async update(user: any) {
+    if (await this.userModel.exists({ _id: user._id })) {
       await this.userModel.findByIdAndUpdate(user._id, user);
-      return await this.userModel.findById({ _id: user._id })
-      } else {
-          throw new HttpException({
-              status: HttpStatus.EXIST,
-              error: 'Este usuario no existe!',
-          }, 409);
-      }
+      return await this.userModel.findById({ _id: user._id });
+    } else {
+      throw new HttpException(
+        {
+          status: HttpStatus.EXIST,
+          error: 'Este usuario no existe!',
+        },
+        409,
+      );
+    }
   }
 }

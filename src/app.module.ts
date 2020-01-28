@@ -13,11 +13,13 @@ import { BillingModule } from './billing/billing.module';
 import { CalculateModule } from './calculate/calculate.module';
 import { TransportModule } from './transport/transport.module';
 import { CountryModule } from './country/country.module';
-
+import { ImagesModule } from './images/images.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://baldo:7ATep5KlM292X9so@barbers-allkf.mongodb.net/Barbers?retryWrites=true&w=majority'),
+    MongooseModule.forRoot(
+      'mongodb+srv://baldo:7ATep5KlM292X9so@barbers-allkf.mongodb.net/Barbers?retryWrites=true&w=majority',
+    ),
     BranchOfficesModule,
     AuthModule,
     ServicesModule,
@@ -27,7 +29,8 @@ import { CountryModule } from './country/country.module';
     BillingModule,
     CalculateModule,
     TransportModule,
-    CountryModule
+    CountryModule,
+    ImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
