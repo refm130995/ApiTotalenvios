@@ -24,7 +24,7 @@ export class ImagesController {
   @Post('/upload')
   @UseInterceptors(FileInterceptor('image'))
   async upload(@UploadedFile() file) {
-    console.log(file);
+    return file;
   }
   @Delete()
   async deleteImage(@Query('id') id: string) {
