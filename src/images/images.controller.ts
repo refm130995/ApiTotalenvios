@@ -27,7 +27,7 @@ export class ImagesController {
   async upload(@UploadedFile() file, @Res() res) {
     try {
       console.log(file);
-      res.status(200).send(file);
+      res.status(200).send(file.path);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
