@@ -24,7 +24,7 @@ export class CountryController {
     Update(@Body() Country: CountryDTO) {
       return this.appService.Update(Country);
     }
-    @Get('find')
+    @Post('find')
     FindByState(@Body() state: FindCityDTO) {
       return this.appService.FindByState(state);
     }
