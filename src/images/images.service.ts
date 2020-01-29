@@ -63,4 +63,6 @@ export class ImagesService {
       );
     }
   }
+
+  async uploadImage() {}
 }

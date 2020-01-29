@@ -1,7 +1,17 @@
-import { Controller, Post, Body, Delete, Query, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Delete,
+  Query,
+  Get,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ImagesService } from './images.service';
 import { CreateImagesDto } from 'src/schemas/images.schema';
-
+import multer from 'multer';
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imageService: ImagesService) {}
@@ -11,6 +21,11 @@ export class ImagesController {
     return await this.imageService.Insert(body);
   }
 
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('image'))
+  async upload(@UploadedFile() file) {
+    console.log(file);
+  }
   @Delete()
   async deleteImage(@Query('id') id: string) {
     return await this.imageService.Delete(id);
