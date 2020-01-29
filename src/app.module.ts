@@ -14,6 +14,7 @@ import { CalculateModule } from './calculate/calculate.module';
 import { TransportModule } from './transport/transport.module';
 import { CountryModule } from './country/country.module';
 import { ImagesModule } from './images/images.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -32,6 +33,9 @@ import { ImagesModule } from './images/images.module';
     TransportModule,
     CountryModule,
     ImagesModule,
+    MulterModule.register({
+      dest: './files',
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
