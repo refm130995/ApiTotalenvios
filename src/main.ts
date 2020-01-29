@@ -7,6 +7,12 @@ async function bootstrap() {
   app.setGlobalPrefix('api2');
   app.enableCors();
   app.use(compression());
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+  });
   /* const options = new DocumentBuilder()
     .setTitle('API SALON')
     .setDescription('Esta es una API dedicada a la aplicacion mobile de barberias')

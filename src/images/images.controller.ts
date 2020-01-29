@@ -7,6 +7,7 @@ import {
   Get,
   UseInterceptors,
   UploadedFile,
+  Res,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImagesService } from './images.service';
@@ -23,13 +24,13 @@ export class ImagesController {
 
   @Post('/upload')
   @UseInterceptors(FileInterceptor('image'))
-  async upload(@UploadedFile() file) {
+  async upload(@UploadedFile() file, @Res() res) {
     try {
       console.log(file);
-      return file;
+      res.status(200).send(file);
     } catch (error) {
       console.log(error);
-      return error;
+      res.status(500).send(error);
     }
   }
   @Delete()
