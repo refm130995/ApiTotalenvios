@@ -7,22 +7,22 @@ export class ImagesController {
   constructor(private readonly imageService: ImagesService) {}
 
   @Post()
-  uploadImage(@Body() body: CreateImagesDto) {
-    return this.imageService.Insert(body);
+  async uploadImage(@Body() body: CreateImagesDto) {
+    return await this.imageService.Insert(body);
   }
 
   @Delete()
-  deleteImage(@Query('id') id: string) {
-    return this.imageService.Delete(id);
+  async deleteImage(@Query('id') id: string) {
+    return await this.imageService.Delete(id);
   }
 
   @Get('/slider')
-  findAllSlider() {
-    return this.imageService.FindSlider();
+  async findAllSlider() {
+    return await this.imageService.FindSlider();
   }
 
   @Get('/promotion')
-  findAllPromotions() {
-    return this.imageService.findPromotions();
+  async findAllPromotions() {
+    return await this.imageService.findPromotions();
   }
 }

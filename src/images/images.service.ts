@@ -10,7 +10,7 @@ export class ImagesService {
 
   async Insert(body: CreateImagesDto) {
     try {
-      return new this.ImagesModel(body).save();
+      return await new this.ImagesModel(body).save();
     } catch (error) {
       throw new HttpException(
         {
