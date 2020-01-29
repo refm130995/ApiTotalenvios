@@ -8,11 +8,14 @@ import {
   UseInterceptors,
   UploadedFile,
   Res,
+  Param,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImagesService } from './images.service';
 import { CreateImagesDto } from 'src/schemas/images.schema';
 import multer from 'multer';
+import { Response } from 'express';
+import { pathToFileURL } from 'url';
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imageService: ImagesService) {}
@@ -46,5 +49,14 @@ export class ImagesController {
   @Get('/promotion')
   async findAllPromotions() {
     return await this.imageService.findPromotions();
+  }
+
+  @Get('/files/:id')
+  async findImage(@Param('id') id:string,res: Response) {
+    try {
+      res.sendFile(__dirname + '/files/'+id)
+    } catch (error) {
+      res.status(500).send(error)
+    }
   }
 }
