@@ -28,9 +28,13 @@ export class ImagesController {
 
   @Post('/upload')
   @UseInterceptors(FileInterceptor('image'))
-  upload(@UploadedFile() file, @Res() res) {
-    console.log(file);
-    return file.filename;
+  async upload(@UploadedFile() file, @Res() res) {
+    try {
+      res.status(200).send(file.filename);
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Ha ocurrido un error');
+    }
   }
   @Delete()
   async deleteImage(@Query('id') id: string) {
