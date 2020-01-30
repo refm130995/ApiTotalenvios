@@ -13,9 +13,10 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImagesService } from './images.service';
 import { CreateImagesDto } from 'src/schemas/images.schema';
-import multer from 'multer';
+import { diskStorage } from 'multer';
 import { Response } from 'express';
 import { pathToFileURL } from 'url';
+import { join, extname } from 'path';
 @Controller('images')
 export class ImagesController {
   constructor(private readonly imageService: ImagesService) {}
@@ -26,11 +27,20 @@ export class ImagesController {
   }
 
   @Post('/upload')
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './files',
+        filename: (req, file, cb) => {
+          return cb(null, file.originalname);
+        },
+      }),
+    }),
+  )
   async upload(@UploadedFile() file, @Res() res) {
     try {
       console.log(file);
-      res.status(200).send(file.path);
+      res.status(200).send(file.filename);
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
@@ -52,11 +62,11 @@ export class ImagesController {
   }
 
   @Get('/files/:id')
-  async findImage(@Param('id') id:string,res: Response) {
+  async findImage(@Param('id') id: string, @Res() res) {
     try {
-      res.sendFile(__dirname + '/files/'+id)
+      res.sendFile(id, { root: 'files' });
     } catch (error) {
-      res.status(500).send(error)
+      return error;
     }
   }
 }

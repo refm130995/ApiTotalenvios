@@ -8,6 +8,9 @@ import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Images', schema: ImagesSchema }]),
+    MulterModule.register({
+      dest: './files',
+    }),
   ],
   controllers: [ImagesController],
   providers: [ImagesService],

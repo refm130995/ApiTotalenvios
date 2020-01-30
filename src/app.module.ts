@@ -21,7 +21,10 @@ import { MulterModule } from '@nestjs/platform-express';
     /* MongooseModule.forRoot(
       'mongodb+srv://baldo:7ATep5KlM292X9so@barbers-allkf.mongodb.net/Barbers?retryWrites=true&w=majority',
     ), */
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/totalenvios'),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/totalenvios', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     BranchOfficesModule,
     AuthModule,
     ServicesModule,
@@ -33,9 +36,6 @@ import { MulterModule } from '@nestjs/platform-express';
     TransportModule,
     CountryModule,
     ImagesModule,
-    MulterModule.register({
-      dest: './files',
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],
