@@ -27,16 +27,7 @@ export class ImagesController {
   }
 
   @Post('/upload')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './files',
-        filename: (req, file, cb) => {
-          return cb(null, file.originalname);
-        },
-      }),
-    }),
-  )
+  @UseInterceptors(FileInterceptor('image'))
   upload(@UploadedFile() file, @Res() res) {
     console.log(file);
     return file.filename;
