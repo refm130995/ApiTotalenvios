@@ -37,14 +37,9 @@ export class ImagesController {
       }),
     }),
   )
-  async upload(@UploadedFile() file, @Res() res) {
-    try {
-      console.log(file);
-      res.status(200).send(file.filename);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send(error);
-    }
+  upload(@UploadedFile() file, @Res() res) {
+    console.log(file);
+    return file.filename;
   }
   @Delete()
   async deleteImage(@Query('id') id: string) {
